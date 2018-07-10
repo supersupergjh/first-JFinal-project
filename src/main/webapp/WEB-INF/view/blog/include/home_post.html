@@ -1,0 +1,65 @@
+
+<div class="home-post well clearfix">
+    <div class="post-title underline clearfix">
+        <a href="/">
+            <div class="pre-cat">
+                <div class="pre-catinner btn">
+                    #(blog_category.findById(post.category_id).name)
+                </div>
+                <div class="pre-catarrow">
+                </div>
+            </div>
+        </a>
+        <h1>
+            <a href="/article?articleId=#(post.id)">#(post.title)</a>
+        </h1>
+        <div class="post-info">
+            <span>
+                <span class="glyphicon glyphicon-calendar"></span>
+                #date(post.create_time, "yyyy-MM-dd")
+            </span>
+            <span>
+                <span class="glyphicon glyphicon-comment"></span>
+                #(post.comment_times)
+            </span>
+            <span>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                #(post.view_times)
+            </span>
+            <div class="post-tags">
+                #for(tag : post.tags)
+                <a href="/" class="#if(for.count)hidden-xs#end ">
+                    <span class="label label-vmaig-#(for.count) btn">#(tag)</span>
+                </a>
+                #end
+                <a class="visible-xs-inline-block">
+                    <span class="label label-vmaig-2 btn ">...</span>
+                </a>
+ 
+            </div>
+
+        </div>
+    </div>
+    <div class="post-content">
+        <div class="row">
+            <div class="col-sm-4">
+                <figure class="thumbnail">
+                    <a href="/">
+                        <img src="#(post.img)"  height="300" alt="">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-sm-8">
+                <p>
+                    #if(post.summary.length() <= 200)
+                    #(post.summary)
+                    #else
+                    #(post.summary.substring(0,200)+"...")
+                    #end
+                </p>
+                <a type="button" class="btn btn-vmaig pull-right hidden-xs"  href="/">阅读全文</a>
+
+            </div>
+        </div>
+    </div>
+</div>

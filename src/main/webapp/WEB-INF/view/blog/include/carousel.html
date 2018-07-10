@@ -1,0 +1,49 @@
+<div id="myCarousel" class="carousel slide clearfix" >
+    <ol class="carousel-indicators">
+        #for(carousel_page : carousel_page_list)
+            #if(for.first)
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            #else
+                <li data-target="#myCarousel" data-slide-to="#(for.count)"></li>
+            #end
+            
+        #end
+    </ol>   
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        #for(carousel_page : carousel_page_list)
+            #if(for.first)
+            <div class="item active">
+                <!--<a href="{% url 'article-detail-view' carousel_page.article.en_title %}">-->
+                <a href="/">
+                    <img src="#(carousel_page.img)" alt="#(carousel_page.title)">
+                    <div class="carousel-caption">
+                        <h4>#(carousel_page.title)</h4>
+                        #(carousel_page.summary)
+                    </div>
+                </a>
+            </div>
+            #else
+            <div class="item">
+                <!--<a href="{% url 'article-detail-view' carousel_page.article.en_title %}">-->
+                <a href="/">
+                    <img src="#(carousel_page.img)" alt="#(carousel_page.title)">
+                    <div class="carousel-caption">
+                        <h4>#(carousel_page.title)</h4>
+                        #(carousel_page.summary)
+                    </div>
+                </a>
+            </div>
+            #end
+        #end
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div> 

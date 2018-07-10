@@ -1,0 +1,99 @@
+<div id="anchor-quote"></div>
+<div class="well">
+    <div class="vmaig-comment">
+        <div class="vmaig-comment-tx">
+            #if(isLogin)
+            <img src="#(user.img)" width="40">
+            #else
+            <img src="/blog/static/img/favicon.ico" width="40">
+            #end
+        </div>
+        <div class="vmaig-comment-edit clearfix">
+            <form id="vmaig-comment-form" method="post" role="form">
+                <!--{% csrf_token %}-->
+                <textarea id="comment" name="comment" class="form-control" rows="4" placeholder="请输入评论 限200字!"></textarea>
+                <button type="submit" class="btn btn-vmaig-comments pull-right">提交</button>
+            </form>
+        </div>
+        <ul>
+            #for(comment : comment_list)
+            <li>
+            <div class="vmaig-comment-tx">
+                <img src="#(user_list.findById(comment.user_id).img)" width="40">
+            </div>
+            <div class="vmaig-comment-content" value="#(comment.user_id)">
+                <a><h1>#(user_list.findById(comment.user_id).username)</h1></a>
+                #if(comment.parent_id)
+                <div class="comment-quote">
+                    <p>
+                        <a>@#(user_list.findById(comment_table.findById(comment.parent_id).user_id).username)：</a>
+                        #(comment_table.findById(comment.parent_id).text)
+                    </p>
+                </div>
+                #end
+                <p></p>
+                <p>
+                    评论：
+                    #(comment.text)
+                </p>
+                <p>#date(comment.create_time, "yyyy-MM-dd") &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a class='quote' href="#anchor-quote" onclick="return CommentQuote('#(user_list.findById(comment.user_id).username)',#(comment.id));">回复</a></p>
+            </div>
+            </li>
+            #end
+        </ul>
+    </div>
+    <div id="isLogin" class="#(isLogin)"></div>
+</div>
+<script language="javascript" type="text/javascript">
+    function CommentQuote(user_name, commend_id){
+        comment = document.getElementById('comment');
+        comment.value = "@['"+user_name+"', "+commend_id+"]: ";
+        comment.focus();;
+        comment.setSelectionRange(comment.value.length, comment.value.length);
+    };
+
+    $('#vmaig-comment-form').submit(function(){
+        var isLogin = $("#isLogin").attr("class");
+        if(isLogin === 'false') {
+            alert("please login!");
+            return;
+        }
+        var hasParent = false;
+        var parent_id = 0;
+        if($("#comment").val().length === 0) {
+            alert("empty comment!");
+            location.reload();
+            return;
+        } else if($("#comment").val().length < 12) {
+            var comment = $("#comment").val();
+        } else if($("#comment").val().substring(0,2) === "@[") {
+            var list = $("#comment").val().split("]: ");
+            var comment = list[1];
+            parent_id = new Number(list[0].split(", ")[1]);
+            hasParent = true;
+        }else {
+            var comment = $("#comment").val();
+        }
+        //alert("hi");
+        $.ajax({
+            type:"POST",
+            url:"/comment",
+            data:{"comment":comment, "articleId": $("#article").attr("class"), "hasParent": hasParent, "parent_id": parent_id, "comment_user": $(".vmaig-comment-content").attr("value")},
+            beforeSend:function(xhr){
+                //xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
+            success:function(data,textStatus){
+                $("#comment").val("");
+                $(".vmaig-comment ul").prepend(data);
+                top.location.href= location.href;
+                location.reload();
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+
+            }
+
+        });
+        return false;
+    }); 
+</script>
