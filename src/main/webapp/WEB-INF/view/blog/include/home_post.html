@@ -1,7 +1,7 @@
 
 <div class="home-post well clearfix">
     <div class="post-title underline clearfix">
-        <a href="/">
+        <a href="/category?categoryId=#(post.category_id)">
             <div class="pre-cat">
                 <div class="pre-catinner btn">
                     #(blog_category.findById(post.category_id).name)
@@ -28,8 +28,8 @@
             </span>
             <div class="post-tags">
                 #for(tag : post.tags)
-                <a href="/" class="#if(for.count)hidden-xs#end ">
-                    <span class="label label-vmaig-#(for.count) btn">#(tag)</span>
+                <a href="/tag?tagId=#(tag)" class="#if(for.count)hidden-xs#end ">
+                    <span class="label label-vmaig-#(for.count) btn">#(blog_tag.findById(tag).name)</span>
                 </a>
                 #end
                 <a class="visible-xs-inline-block">
@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <figure class="thumbnail">
-                    <a href="/">
+                    <a href="/article?articleId=#(post.id)">
                         <img src="#(post.img)"  height="300" alt="">
                     </a>
                 </figure>
@@ -57,7 +57,7 @@
                     #(post.summary.substring(0,200)+"...")
                     #end
                 </p>
-                <a type="button" class="btn btn-vmaig pull-right hidden-xs"  href="/">阅读全文</a>
+                <a type="button" class="btn btn-vmaig pull-right hidden-xs"  href="/article?articleId=#(post.id)">阅读全文</a>
 
             </div>
         </div>

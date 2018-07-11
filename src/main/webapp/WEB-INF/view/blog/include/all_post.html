@@ -2,7 +2,7 @@
 
 <div class="all-post clearfix underline">
     <div class="post-title clearfix">
-        <a href="/">
+        <a href="/category?categoryId=#(post.category_id)">
             <div class="pre-cat">
                 <div class="pre-catinner btn">
                     #(blog_category.findById(post.category_id).name)
@@ -15,8 +15,8 @@
 
         <div class="post-tags" style="float:right">
             #for(tag : post.tags)
-            <a href="/">
-                <span class="label label-vmaig-#(for.count) btn">#(tag)</span>
+            <a href="/tag?tagId=#(tag)">
+                <span class="label label-vmaig-#(for.count) btn">#(blog_tag.findById(tag).name)</span>
             </a>
             #end
         </div>
@@ -25,14 +25,18 @@
         <div class="row">
             <div class="col-sm-4">
                 <figure class="thumbnail">
-                    <a href="/">
+                    <a href="/article?articleId=#(post.id)">
                         <img src="#(post.img)"  height="400" alt="">
                     </a>
                 </figure> 
             </div>
             <div class="col-sm-8">
                 <p>
+                    #if(post.summary.length() <= 200)
                     #(post.summary)
+                    #else
+                    #(post.summary.substring(0,200)+"...")
+                    #end
                 </p>
             </div>
         </div>

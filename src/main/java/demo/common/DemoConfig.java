@@ -22,6 +22,8 @@ public class DemoConfig extends JFinalConfig {
         me.add("/article",ArticleController.class, "/WEB-INF/view/blog");
         me.add("/user", UserController.class);
         me.add("/comment", CommentController.class,"/WEB-INF/view/blog");
+        me.add("/category", CategoryController.class, "/WEB-INF/view/blog");
+        me.add("/tag", TagController.class, "/WEB-INF/view/blog");
 
     }
 
@@ -44,6 +46,8 @@ public class DemoConfig extends JFinalConfig {
         arp.addMapping("user", User.class);
         arp.addMapping("vmaig_comments_comment", Comments.class);
         arp.addMapping("vmaig_system_notification", Notification.class);
+        arp.addMapping("blog_tag", BlogTag.class);
+
     }
 
     public void configInterceptor(Interceptors me) {

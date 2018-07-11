@@ -28,12 +28,8 @@ public class ArticleController extends Controller {
         setAttr("article", article);
 
 
-        setAttr("hot_article_list", Article.dao
-                .find("select * from blog_article order by view_times desc LIMIT 8"));
-        setAttr("latest_comment_list", Comments.dao
-                .find("select * from vmaig_comments_comment order by create_time desc LIMIT 10"));
-        setAttr("links", SystemLinks.dao.find("select * from vmaig_system_link order by id asc"));
-        setAttr("blog_category", BlogCategory.dao);
+
+
 
         //end
 

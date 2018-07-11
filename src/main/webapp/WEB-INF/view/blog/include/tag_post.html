@@ -1,47 +1,43 @@
-{% url 'category-detail-view' post.category.name as category_url %}
-{% url 'article-detail-view' post.en_title as article_url %}
+
 
 <div class="all-post clearfix underline">
     <div class="post-title clearfix">
-        <a href="{{category_url}}">
+        <a href="/category?categoryId=#(post.category_id)">
             <div class="pre-cat">
                 <div class="pre-catinner btn">
-                    {{post.category}} 
+                    #(blog_category.findById(post.category_id).name)
                 </div>
                 <div class="pre-catarrow">
                 </div>
             </div> 
         </a>
-        <h1><a href="{{article_url}}">{{post.title}}</a></h1>
+        <h1><a href="/article?articleId=#(post.id)">#(post.title)</a></h1>
 
-        <span class="visible-xs-inline-block" style="margin-top:7px;">
-            {{post.pub_time|date:"Y-m-d"}}
         </span>
         <div class="post-tags">
-            {% for tag in post.get_tags%}
-            <a href="{% url 'tag-detail-view' tag %}">
-                <span class="label label-vmaig-{{forloop.counter}} btn">{{tag}}</span>
+            #for(tag : post.tags)
+            <a href="/tag?tagId=#(tag)">
+                <span class="label label-vmaig-#(for.count) btn">#(blog_tag.findById(tag).name)</span>
             </a>
-            {% endfor %}
+            #end
         </div>
     </div>
     <div class="post-content ">
         <div class="row">
             <div class="col-sm-4">
                 <figure class="thumbnail">
-                    <a href="{{article_url}}">
-                        <img src="{{post.img}}"  height="400" alt="">
+                    <a href="/article?articleId=#(post.id)">
+                        <img src="#(post.img)"  height="400" alt="">
                     </a>
                 </figure> 
             </div>
             <div class="col-sm-8">
                 <p>
-                {% autoescape off%}
-                {{post.summary|slice:"200" }}
-                {% endautoescape %}
-                {% if post.summary|length > 200 %}
-                    ...
-                {% endif %}
+                    #if(post.summary.length() <= 200)
+                    #(post.summary)
+                    #else
+                    #(post.summary.substring(0,200)+"...")
+                    #end
                 </p>
             </div>
         </div>
@@ -49,15 +45,15 @@
     <div class="post-info hidden-xs">
         <span>
             <span class="glyphicon glyphicon-calendar"></span>
-            {{post.pub_time|date:"Y-m-d" }}
+            #date(post.create_time, "yyyy-MM-dd")
         </span>
         <span>
             <span class="glyphicon glyphicon-comment"></span>
-            {{post.comment_set.all | length}}
+            #(post.comment_times)
         </span>
         <span>
             <span class="glyphicon glyphicon-eye-open"></span>
-            {{post.view_times}}
+            #(post.view_times)
         </span>
     </div>
 </div>
