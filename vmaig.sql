@@ -11,7 +11,7 @@
  Target Server Version : 100126
  File Encoding         : 65001
 
- Date: 10/07/2018 15:52:44
+ Date: 11/07/2018 11:20:56
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,14 @@ CREATE TABLE `auth_group` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_group_name_key` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of auth_group
+-- ----------------------------
+BEGIN;
+INSERT INTO `auth_group` VALUES (0, 'Klay');
+INSERT INTO `auth_group` VALUES (1, 'stephen');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for auth_group_permissions
@@ -80,6 +88,13 @@ CREATE TABLE `blog_article` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of blog_article
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_article` VALUES (0, 'My first JFinal article', NULL, '/blog/static/img/article/default.jpg', '0', 'hahahahahahahaha', 'lsalalalalalalalal什么都没有', 43, NULL, NULL, NULL, NULL, '2018-06-29 17:59:40', '2018-06-28 17:37:43', NULL, 0, 0, 3);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for blog_carousel
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_carousel`;
@@ -94,6 +109,14 @@ CREATE TABLE `blog_carousel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of blog_carousel
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_carousel` VALUES (0, 'linux环境编程', 'linux环境编程', '/blog/static/img/carousel/linux-carousel.jpg', '2018-06-28 08:06:47', NULL);
+INSERT INTO `blog_carousel` VALUES (1, 'default page', 'hhhh', '/blog/static/img/carousel/default.jpg', '2018-06-28 08:07:17', NULL);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for blog_category
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_category`;
@@ -106,6 +129,16 @@ CREATE TABLE `blog_category` (
   `parent_id` int(11) DEFAULT NULL COMMENT '上级分类',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of blog_category
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_category` VALUES (0, 'Java', NULL, NULL, '2018-06-28 09:44:19', NULL);
+INSERT INTO `blog_category` VALUES (1, 'linux', NULL, NULL, '2018-06-29 08:19:13', NULL);
+INSERT INTO `blog_category` VALUES (2, 'Django', NULL, NULL, '2018-06-29 08:19:22', NULL);
+INSERT INTO `blog_category` VALUES (3, 'python', NULL, NULL, '2018-06-29 08:19:34', NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for blog_column
@@ -159,6 +192,32 @@ CREATE TABLE `blog_news` (
   `pub_time` datetime NOT NULL COMMENT '发布时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of blog_news
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_news` VALUES (0, 'oschina', '测试oschina', 'oschina', 'oschina.com', '2018-06-29 08:14:45', '2018-06-29 16:14:27');
+INSERT INTO `blog_news` VALUES (1, '', '', '', '', '2018-06-29 08:16:05', '0000-00-00 00:00:00');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for blog_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_tag`;
+CREATE TABLE `blog_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of blog_tag
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_tag` VALUES (0, 'JFinal', '2018-07-11 09:41:33');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for django_admin_log
@@ -223,6 +282,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES (1, '123', '202cb962ac59075b964b07152d234b70', '4321', '/blog/static/img/123.jpg');
+INSERT INTO `user` VALUES (9, '1234', '81dc9bdb52d04dc20036dbd8313ed055', '1234', 'http://vmaig.qiniudn.com/image/tx/tx-default.jpg');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for vmaig_auth_vmaiguser
 -- ----------------------------
 DROP TABLE IF EXISTS `vmaig_auth_vmaiguser`;
@@ -284,6 +351,15 @@ CREATE TABLE `vmaig_comments_comment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of vmaig_comments_comment
+-- ----------------------------
+BEGIN;
+INSERT INTO `vmaig_comments_comment` VALUES (61, '1', '2018-07-09 03:21:30', 0, NULL, 1);
+INSERT INTO `vmaig_comments_comment` VALUES (64, '回复', '2018-07-09 08:57:26', 0, 61, 1);
+INSERT INTO `vmaig_comments_comment` VALUES (65, 'jajandkand', '2018-07-09 09:44:35', 0, 64, 1);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for vmaig_system_link
 -- ----------------------------
 DROP TABLE IF EXISTS `vmaig_system_link`;
@@ -296,6 +372,15 @@ CREATE TABLE `vmaig_system_link` (
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of vmaig_system_link
+-- ----------------------------
+BEGIN;
+INSERT INTO `vmaig_system_link` VALUES (0, '炉石', 'https://hs.blizzard.cn', 'primary', '2018-06-29 07:37:14', '0000-00-00 00:00:00');
+INSERT INTO `vmaig_system_link` VALUES (1, '刺激战场', 'https://pg.qq.com', 'success', '2018-06-29 07:41:17', '0000-00-00 00:00:00');
+INSERT INTO `vmaig_system_link` VALUES (2, '文明', 'https://civilization6.com', 'danger', '2018-06-29 07:44:39', '0000-00-00 00:00:00');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for vmaig_system_notification
@@ -315,6 +400,14 @@ CREATE TABLE `vmaig_system_notification` (
   `article_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of vmaig_system_notification
+-- ----------------------------
+BEGIN;
+INSERT INTO `vmaig_system_notification` VALUES (1, '123回复了你在 My first JFinal article 的评论', NULL, NULL, NULL, 1, '2018-07-09 08:57:26', NULL, 123, 1, 0);
+INSERT INTO `vmaig_system_notification` VALUES (2, '123回复了你在 My first JFinal article 的评论', NULL, NULL, NULL, 1, '2018-07-09 09:44:35', NULL, 1, 1, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for vmaig_userIp
